@@ -34,7 +34,7 @@ button {
   font-size: 20px;
 }
 
-.medium {
+.middle {
   width: 300px;
   height: 70px;
   font-size: 40px;

@@ -17,11 +17,17 @@ const getNextPageNumber = computed(() => currentPage.value + 1);
 
   // 3. Actions (function)
 
+  const clearPostIndex = () => {
+    items.value = [];
+    isLastPage.value = false;
+    currentPage.value = 0;
+  }
+
   const getPostPagination = async (page = 1) => {
   
     if (!isLastPage.value) {
       try {
-        const url = "/api/post";
+        const url = "/api/posts";
         const params = {
           page,
         };
@@ -49,6 +55,7 @@ const getNextPageNumber = computed(() => currentPage.value + 1);
     getNextPageNumber,
 
     // actions
+    clearPostIndex,
     getPostPagination,
   }
 });
