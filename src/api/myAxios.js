@@ -1,4 +1,7 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import useAuthStore from "../store/auth/useAuthStore.js";
+import dayjs from "dayjs";
 
 const myAxios = axios.create({
   // Axios 호출 시, URL 가장 앞에 자동으로 연결해서 동작함
@@ -12,6 +15,32 @@ const myAxios = axios.create({
   // credential 정보를 담아서 보낼지 여부를 설정
   // credential 정보 : cookies, header Authorization 항목 등등
   withCredentials: true,
+});
+
+myAxios.interceptors.request.use(async (config) => {
+  const authStore = useAuthStore();
+  let accessToken = authStore.accessToken;
+  const denyUrl = /^\/api\/reissue-token$/;
+
+  if(!denyUrl.test(config.url) && authStore.isLoggedIn) {
+    // accessToken 만료 확인
+    const claims = jwtDecode(accessToken);
+    const now = dayjs().unix();
+    const expTime = dayjs.unix(claims.exp).add(-5, 'minute').unix();
+
+    if(now >= expTime) {
+      try {
+        await authStore.reissue();
+        accessToken = authStore.accessToken;
+      } catch(error) {
+        console.error(error?.response);
+      }
+    }
+  }
+
+  config.headers.Authorization = `Bearer ${accessToken}`;
+  return config;
+
 });
 
 export default myAxios;
