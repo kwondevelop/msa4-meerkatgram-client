@@ -31,7 +31,6 @@ export const useAuthStore = defineStore('authStore', () => {
       isLoggedIn.value = true;
 
     } catch(error) {
-      console.error(error);
       if(error.response) {
         if(error.response.data.code === 'E01') {
           alert(error.response.data.data);
@@ -54,7 +53,18 @@ export const useAuthStore = defineStore('authStore', () => {
       isLoggedIn.value = true;
     } catch(error) {
       clearAuthStore();
-      throw error;
+    }
+  };
+
+  const logout = async () => {
+    try {
+      const url = '/api/logout';
+
+      await myAxios.post(url);
+    } catch(error) {
+      console.error(error);
+    } finally {
+      clearAuthStore();
     }
   }
 
@@ -70,6 +80,7 @@ export const useAuthStore = defineStore('authStore', () => {
     
     login,
     reissue,
+    logout,
   };
 
 });
