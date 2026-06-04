@@ -68,7 +68,7 @@ onBeforeUnmount(postIndexStore.clearPostIndex);
     v-if="!postIndexStore.isLastPage"
     :color="'gray'"
     :size="'big'"
-    :content="'Show more posts from Ming'"
+    :content="'Show more posts from aaa'"
     @click="getNextPage"
   />
 </template>
