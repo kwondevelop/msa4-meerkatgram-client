@@ -8,6 +8,7 @@ import { useRouter } from "vue-router";
 import loginValidator from "../../util/validator/domain/auth/loginValidator.js";
 import { ref } from "vue";
 import useFileStore from "../../store/file/useFileStore.js";
+import registrationValidator from "../../store/auth/registrationValidator.js";
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -24,6 +25,22 @@ const registrationData = reactive({
 });
 
 const handleSubmit = async () => {
+  // 유효성 검사
+  const validationList = [
+    registrationValidator.email(registrationData.email),
+    registrationValidator.password(registrationData.password),
+    registrationValidator.passwordCheck(registrationData.password, registrationData.passwordCheck),
+    registrationValidator.nick(registrationData.nick),
+    registrationValidator.profile(registrationData.profile),
+  ];
+
+  const errorList = validationList.filter(val => val);
+
+  if(errorList.length > 0) {
+    alert(errorList.join('\n'));
+    return;
+  }
+
   try {
     await authStore.registration(registrationData);
     alert('회원가입 성공');
@@ -35,7 +52,7 @@ const handleSubmit = async () => {
     } else if(data.code === 'E21') {
       alert('잘못된 양식');
     } else {
-      alert('실패\n다시 시도');
+      alert('오류 발생\n다시 시도');
       router.replace('/');
     }
   }
