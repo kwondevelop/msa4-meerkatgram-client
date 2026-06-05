@@ -21,9 +21,14 @@ const usePostShowStore = defineStore('postShowStore', () => {
     }
   }
 
+  const clearPostShow = () => {
+    post.value = null;
+  }
+
   return {
     post,
     getPost,
+    clearPostShow,
   }
 });
 

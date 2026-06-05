@@ -2,10 +2,13 @@
 import { onBeforeMount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import usePostShowStore from "../../store/post/usePostShowStore";
+import { useAuthStore } from "../../store/auth/useAuthStore.js";
+import { onBeforeUnmount } from "vue";
 
 const route = useRoute();
 const router = useRouter();
 const postShowStore = usePostShowStore();
+const authStore = useAuthStore();
 
 onBeforeMount(async () => {
   try {
@@ -16,20 +19,25 @@ onBeforeMount(async () => {
     router.replace('/');
   }
 });
+onBeforeUnmount(postShowStore.clearPostShow);
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" v-if="postShowStore.post">
     <div class ="image" :style="{ backgroundImage: `url(${postShowStore.post.image})` }"></div>
     <div class="option-box">
-      <div class="delete-icon"></div>
+      <div class="delete-box">
+        <div 
+          class="delete-icon"
+          v-show="postShowStore.post.userId === authStore.userInfo.id"
+        ></div>
+      </div>
       <div class="like-box">
-        <span>1919</span>
+        <span>1234</span>
         <div class="like-icon"></div>
       </div>
     </div>
-    <p>{{ postShowStore.post.content }}</p>
-    <textarea name="" id="">{{ postShowStore.post.content }}</textarea>
+    <p class="content">{{ postShowStore.post.content }}</p>
   </div>
 </template>
 
@@ -56,11 +64,11 @@ onBeforeMount(async () => {
 
 .like-box {
   display: flex;
-  gap: 10px;
+  gap: 20px;
 }
 
 .delete-icon {
-  width: 50px;
+  width: 40px;
   height: 50px;
   background-image: url('/icons/trash-can.png');
   background-repeat: no-repeat;
@@ -78,8 +86,6 @@ onBeforeMount(async () => {
 }
 
 .content {
-  width: 100%;
-  height: auto;
-  overflow: hidden;
+  white-space: pre-wrap;
 }
 </style>
