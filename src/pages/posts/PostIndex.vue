@@ -33,6 +33,7 @@ onBeforeUnmount(postIndexStore.clearPostIndex);
 </script>
 
 <template>
+  <hr/>
   <div class="card-container">
     <div
       v-for="item in postIndexStore.items"
@@ -56,11 +57,12 @@ onBeforeUnmount(postIndexStore.clearPostIndex);
   padding: 10px;
   gap: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 }
 
 .card {
-  padding-top: 100%;
+  width: 100px;
+  height: 100px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

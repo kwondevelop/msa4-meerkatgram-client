@@ -42,13 +42,37 @@ const authStore = useAuthStore();
 .container {
   padding: 10px;
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 20px;
+  /* 1fr 2fr 대신 auto 1fr을 써서 프로필 영역 크기를 고정하고, gap으로 간격을 줍니다 */
+  grid-template-columns: auto 1fr; 
+  gap: 25px; /* ⬅️ 이 수치를 줄이거나 늘려서 원하는 간격으로 딱 맞출 수 있습니다 (예: 10px, 30px) */
+  align-items: center; 
 }
 
+/* 프로필 이미지 크기 지정 및 정렬 설정 */
+.profile {
+  width: 100px;          
+  height: 100px;         
+  border-radius: 50%;    
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 아이콘들을 감싸는 박스 크기 조절 */
 .redirect-box {
+  width: 140px;          
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  margin-top: 8px;       
+}
+
+/* 개별 아이콘 크기 지정 및 정렬 설정 */
+.bg-image-square {
+  width: 32px;           
+  height: 32px;          
+  background-size: contain; 
+  background-position: center;
+  background-repeat: no-repeat;
 }
 </style>

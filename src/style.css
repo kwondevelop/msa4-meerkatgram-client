@@ -11,12 +11,13 @@
 }
 
 #app > :not(hr){
-  max-width: 1000px;
+  max-width: 450px;
   margin: auto;
 }
 
 .bg-image-circle {
-  padding-top: 100%;
+  width: 200px;
+  height: 200px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -24,8 +25,22 @@
 }
 
 .bg-image-square {
-  padding-top: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* .container {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+}
+
+.redirect-box {
+  width: 300px;
+  height: 150px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+} */

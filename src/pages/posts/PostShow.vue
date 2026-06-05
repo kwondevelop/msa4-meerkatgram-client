@@ -24,8 +24,10 @@ onBeforeUnmount(postShowStore.clearPostShow);
 </script>
 
 <template>
+  <hr/>
   <div class="container" v-if="postShowStore.post">
     <div class ="image" :style="{ backgroundImage: `url(${postShowStore.post.image})` }"></div>
+  </div>
     <div class="option-box">
       <div class="delete-box">
         <div 
@@ -39,7 +41,6 @@ onBeforeUnmount(postShowStore.clearPostShow);
       </div>
     </div>
     <p class="content">{{ postShowStore.post.content }}</p>
-  </div>
 </template>
 
 <style scoped>
@@ -47,25 +48,27 @@ onBeforeUnmount(postShowStore.clearPostShow);
   padding: 15px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 15px;
 }
 
 .image {
-  padding-top: 100%;
+  width: 350px;
+  height: 350px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 
 .option-box {
-  padding: 0 15px;
+  padding: 0 50px;
   display: flex;
   justify-content: space-between;
 }
 
 .like-box {
   display: flex;
-  gap: 20px;
+  gap: 15px;
 }
 
 .delete-icon {
@@ -87,6 +90,7 @@ onBeforeUnmount(postShowStore.clearPostShow);
 }
 
 .content {
+  padding: 15px 50px;
   white-space: pre-wrap;
 }
 </style>
