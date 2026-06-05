@@ -9,10 +9,12 @@ import loginValidator from "../../util/validator/domain/auth/loginValidator.js";
 import { ref } from "vue";
 import useFileStore from "../../store/file/useFileStore.js";
 import registrationValidator from "../../store/auth/registrationValidator.js";
+import { useMyErrorStore } from "../../store/error/useMyErrorStore.js";
 
 const authStore = useAuthStore();
 const router = useRouter();
 const fileStore = useFileStore();
+const myErrorStore = useMyErrorStore();
 
 const preview = ref(null);
 const selectedFile = ref(null);
@@ -52,8 +54,8 @@ const handleSubmit = async () => {
     } else if(data.code === 'E21') {
       alert('잘못된 양식');
     } else {
-      alert('오류 발생\n다시 시도');
-      router.replace('/');
+      myErrorStore.setErrorInfo(error);
+      router.replace('/error');
     }
   }
 }
@@ -89,7 +91,7 @@ const handleChangeProfile = async (event) => {
   <form @submit.prevent="handleSubmit">
     <MyInput
       :type="'email'"
-      :placeholder="'Email'"
+      :placeholder="'이메일'"
       :readonly="false"
       :required="true"
       v-model="registrationData.email"
@@ -97,7 +99,7 @@ const handleChangeProfile = async (event) => {
 
     <MyInput
       :type="'password'"
-      :placeholder="'Password'"
+      :placeholder="'비밀번호'"
       :readonly="false"
       :required="true"
       v-model="registrationData.password"
@@ -105,7 +107,7 @@ const handleChangeProfile = async (event) => {
 
     <MyInput
       :type="'password'"
-      :placeholder="'Password Check'"
+      :placeholder="'비밀번호 확인'"
       :readonly="false"
       :required="true"
       v-model="registrationData.passwordCheck"
@@ -113,7 +115,7 @@ const handleChangeProfile = async (event) => {
 
     <MyInput
       :type="'text'"
-      :placeholder="'Nickname'"
+      :placeholder="'이름'"
       :readonly="false"
       :required="true"
       v-model="registrationData.nick"
@@ -136,7 +138,7 @@ const handleChangeProfile = async (event) => {
       :btn-type="'submit'"
       :color="'gray'"
       :size="'middle'"
-      :content="'Sign Up'"
+      :content="'가입하기'"
     />
   </form>
 </template>

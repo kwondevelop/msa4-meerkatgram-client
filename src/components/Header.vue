@@ -29,32 +29,33 @@ const logout = async () => {
 <template>
   <div class="header">
     <div class="title-box">
-      <h1 class="title" @click="redirectMain()">Meerkatgram</h1>
+      <h1 class="title" @click="redirectMain()">미어캣그램</h1>
     </div>
     <div class="btn-box">
       <MyButton
       v-if="!authStore.isLoggedIn" 
       @click="redirectLogin"
-      :content="'Sign In'" 
+      :content="'로그인'" 
       :color="'gray'"
       :size="'small'"
       />
       <MyButton 
       v-if="!authStore.isLoggedIn"
-      :content="'Sign Up'" 
-      :color="'white'"
+      :content="'가입'" 
+      :color="'whitegray'"
       :size="'small'"
       @click="redirectRegistration()"
       />
       <MyButton
       v-if="authStore.isLoggedIn"
-      :content="'Log out'" 
+      :content="'로그아웃'" 
       :color="'black'"
       :size="'small'"
       @click="logout"
       />
     </div>
   </div>
+  <hr/>
 </template>
 
 <style scoped>

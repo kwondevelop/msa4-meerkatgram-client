@@ -40,7 +40,7 @@ const getNextPageNumber = computed(() => currentPage.value + 1);
       currentPage.value++;
       } catch(error) {
         console.error(error);
-        useMyErrorStore().setErrorInfo(error);
+        throw error;
       } 
     }
   }

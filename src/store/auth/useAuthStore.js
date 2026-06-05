@@ -38,7 +38,7 @@ export const useAuthStore = defineStore('authStore', () => {
         }
       }
 
-      useMyErrorStore().setErrorInfo(error);
+      throw error;
     }
   }
 

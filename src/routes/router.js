@@ -3,7 +3,7 @@ import PostIndex from '../pages/posts/PostIndex.vue';
 import MyError from '../pages/errors/MyError.vue';
 import Login from '../pages/auth/Login.vue';
 import Header from '../components/Header.vue';
-import useAuthStore from '../store/auth/useAuthStore.js';
+import { useAuthStore } from '../store/auth/useAuthStore.js';
 import PostShow from '../pages/posts/PostShow.vue';
 import Registration from '../pages/auth/Registration.vue';
 
@@ -42,6 +42,12 @@ const routes = [
     component: PostShow,
     meta: setMeta(true, false),
   },
+  // 에러 관련
+  {
+    path: '/error',
+    component: MyError,
+    meta: setMeta(false, false),
+  }
 ];
 
 const router = createRouter({

@@ -3,45 +3,24 @@ import { onBeforeMount, ref, onBeforeUnmount } from "vue";
 import MyButton from "../../components/button/MyButton.vue";
 import usePostIndexStore from "../../store/post/usePostIndexStore.js";
 import { useRouter } from "vue-router";
-
-// -----------------------------------------------------------------
-// 스토어로 이관
-
-// const posts = ref([]);
-// const isLastPage = ref(false);
-// let currentPage = 0;
-
-// // 함수 정의
-// const getPostPagination = async (page = 1) => {
-//   // 마지막 페이지가 아닐 경우만 실행
-//   if (!isLastPage.value) {
-//     try {
-//       const url = "/api/posts";
-//       const params = {
-//         page,
-//       };
-
-//       const res = await myAxios.get(url, { params });
-//       const data = res.data.data;
-//       isLastPage.value = data.lastPage;
-//       posts.value.push(...data.posts);
-
-//       // 처리 다 끝나고 갱신
-//       currentPage++;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-// };
-
-// -----------------------------------------------------------------
+import { useMyErrorStore } from "../../store/error/useMyErrorStore.js";
 
 const router = useRouter();
 const postIndexStore = usePostIndexStore();
+const myErrorStore = useMyErrorStore();
+
+const getPagination = async (page = 1) => {
+  try {
+  await postIndexStore.getPostPagination(page);
+  } catch (error) {
+  myErrorStore.setErrorInfo(error);
+  router.replace("/error");
+  }
+}
 
 // 버튼 클릭시 다음 페이지
 const getNextPage = async () => {
-  await postIndexStore.getPostPagination(postIndexStore.getNextPageNumber);
+  await getPagination(postIndexStore.getNextPageNumber);
 }
 
 const redirectShow = (id) => {
@@ -49,9 +28,8 @@ const redirectShow = (id) => {
 }
 
 // 라이프 사이클
-onBeforeMount(postIndexStore.getPostPagination);
+onBeforeMount(getPagination);
 onBeforeUnmount(postIndexStore.clearPostIndex);
-
 </script>
 
 <template>
@@ -68,7 +46,7 @@ onBeforeUnmount(postIndexStore.clearPostIndex);
     v-if="!postIndexStore.isLastPage"
     :color="'gray'"
     :size="'big'"
-    :content="'Show more posts from aaa'"
+    :content="'더 많은 게시물 보기'"
     @click="getNextPage"
   />
 </template>

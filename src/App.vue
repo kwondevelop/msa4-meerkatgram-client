@@ -1,11 +1,11 @@
 <script setup>
 import Header from './components/Header.vue';
+import UserInfo from './components/UserInfo.vue';
 import PostIndex from './pages/posts/PostIndex.vue';
-import Main from './components/Main.vue';
 </script>
 
 <template>
   <Header />
-  <hr>
-  <Main></Main>
+  <UserInfo />
+  <router-view></router-view>
 </template>

@@ -4,19 +4,20 @@ import { useRoute, useRouter } from "vue-router";
 import usePostShowStore from "../../store/post/usePostShowStore";
 import { useAuthStore } from "../../store/auth/useAuthStore.js";
 import { onBeforeUnmount } from "vue";
+import { useMyErrorStore } from "../../store/error/useMyErrorStore.js";
 
 const route = useRoute();
 const router = useRouter();
 const postShowStore = usePostShowStore();
 const authStore = useAuthStore();
+const myErrorStore = useMyErrorStore();
 
 onBeforeMount(async () => {
   try {
     await postShowStore.getPost(route.params.id);
   } catch (error) {
-    const message = error?.response?.data.data ? error?.response?.data.data : "포스트 획득 실패";
-    alert(message);
-    router.replace('/');
+    myErrorStore.setErrorInfo(error);
+    router.replace("/error");
   }
 });
 onBeforeUnmount(postShowStore.clearPostShow);

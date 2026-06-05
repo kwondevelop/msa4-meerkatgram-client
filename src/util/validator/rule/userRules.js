@@ -28,7 +28,7 @@ export const password = (val) => {
 }
 
 export const passwordCheck = (password, passwordCheck) => {
-  if(passwordCheck) {
+  if(!passwordCheck) {
     return '비밀번호 확인 필수다';
   }
   return password === passwordCheck ? '' : '비밀번호랑 비밀번호 일치하지 않는다';
