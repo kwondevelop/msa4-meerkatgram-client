@@ -25,14 +25,15 @@ onBeforeUnmount(postShowStore.clearPostShow);
 
 <template>
   <hr/>
-  <div class="container" v-if="postShowStore.post">
-    <div class ="image" :style="{ backgroundImage: `url(${postShowStore.post.image})` }"></div>
-  </div>
+  <template v-if="postShowStore.post">
+    <div class="container">
+      <div class ="image" :style="{ backgroundImage: `url(${postShowStore.post.postImageUrl})` }"></div>
+    </div>
     <div class="option-box">
       <div class="delete-box">
         <div 
           class="delete-icon"
-          v-show="postShowStore.post.userId === authStore.userInfo.id"
+          v-show="postShowStore.post.userId === authStore.userInfo?.id"
         ></div>
       </div>
       <div class="like-box">
@@ -40,7 +41,8 @@ onBeforeUnmount(postShowStore.clearPostShow);
         <div class="like-icon"></div>
       </div>
     </div>
-    <p class="content">{{ postShowStore.post.content }}</p>
+    <p class="content">{{ postShowStore.post.postContent }}</p>
+  </template>
 </template>
 
 <style scoped>

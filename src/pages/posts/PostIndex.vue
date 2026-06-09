@@ -39,7 +39,7 @@ onBeforeUnmount(postIndexStore.clearPostIndex);
       v-for="item in postIndexStore.items"
       :key="item.id"
       class="card"
-      :style="{ backgroundImage: `url(${item.image})` }"
+      :style="{ backgroundImage: `url(${item.postImageUrl})` }"
       @click="redirectShow(item.id)"
     ></div>
   </div>

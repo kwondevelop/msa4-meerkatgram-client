@@ -72,6 +72,7 @@ const logout = async () => {
 
 .title {
   font-size: 20px;
+  cursor: pointer;
 }
 
 .btn-box {
