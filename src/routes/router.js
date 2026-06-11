@@ -6,6 +6,7 @@ import Header from '../components/Header.vue';
 import { useAuthStore } from '../store/auth/useAuthStore.js';
 import PostShow from '../pages/posts/PostShow.vue';
 import Registration from '../pages/auth/Registration.vue';
+import PostCreate from '../pages/posts/PostCreate.vue';
 
 const setMeta = (isAuthenticated, isGuestOnly) => {
   return {
@@ -20,12 +21,13 @@ const routes = [
     redirect: '/posts',
     meta: setMeta(false, false),
   },
-  // 인증 관련
+  // 로그인
   {
     path: '/login',
     component: Login,
     meta: setMeta(false, true),
   },
+  // 가입
   {
     path: "/registration",
     component: Registration,
@@ -37,12 +39,19 @@ const routes = [
     component: PostIndex,
     meta: setMeta(true, false),
   },
+  // 게시글 상세
   {
     path: '/posts/:id',
     component: PostShow,
     meta: setMeta(true, false),
   },
-  // 에러 관련
+  // 게시글 생성
+  {
+    path: '/posts/create',
+    component: PostCreate,
+    meta: setMeta(true, false),
+  },
+  // 에러
   {
     path: '/error',
     component: MyError,
